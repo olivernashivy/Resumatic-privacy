@@ -3,335 +3,1131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — Resumatic</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <title>Resumatic — AI Resume Builder for Android</title>
+  <meta name="description" content="Build a professional resume in minutes with AI-powered suggestions, beautiful templates, and one-tap PDF export." />
 
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:       #2563EB;
+      --blue-dark:  #1D4ED8;
+      --blue-light: #EFF6FF;
+      --navy:       #0F172A;
+      --gold:       #F59E0B;
+      --gold-light: #FEF3C7;
+      --bg:         #F7F8FA;
+      --surface:    #FFFFFF;
+      --text:       #111827;
+      --muted:      #6B7280;
+      --border:     #E5E7EB;
+      --green:      #059669;
+      --purple:     #7C3AED;
+      --orange:     #EA580C;
+      --sky:        #0284C7;
+    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #f9fafb;
-      color: #1a1a2e;
-      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
     }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { display: block; max-width: 100%; }
 
-    header {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: #fff;
-      padding: 3rem 1.5rem 2.5rem;
-      text-align: center;
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-
-    header h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.4rem;
-    }
-
-    header p {
-      opacity: 0.85;
-      font-size: 0.95rem;
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      border-radius: 999px;
-      padding: 0.2rem 0.75rem;
-      font-size: 0.8rem;
-      margin-top: 0.75rem;
-      letter-spacing: 0.3px;
-    }
-
-    main {
-      max-width: 760px;
-      margin: 2.5rem auto 4rem;
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       padding: 0 1.5rem;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
-      padding: 2rem 2.25rem;
-      margin-bottom: 1.5rem;
-    }
-
-    h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #4f46e5;
-      margin-bottom: 0.85rem;
+      height: 60px;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: space-between;
     }
-
-    h2 .icon {
-      font-size: 1.2rem;
-      line-height: 1;
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--navy);
+      text-decoration: none;
     }
-
-    p, li { font-size: 0.95rem; color: #374151; }
-
-    ul {
+    .nav-brand svg { flex-shrink: 0; }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
       list-style: none;
-      padding: 0;
+    }
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--blue); text-decoration: none; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: background .15s, transform .1s;
+      text-decoration: none;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-outline { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+    .btn-outline:hover { background: var(--blue-light); }
+
+    /* ── Sections ── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 540px;
     }
 
-    ul li {
-      padding: 0.3rem 0 0.3rem 1.4rem;
+    /* ── Hero ── */
+    #home {
+      background: var(--navy);
+      padding: 6rem 1.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #home::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(37,99,235,.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #home::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(245,158,11,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245,158,11,.15);
+      border: 1px solid rgba(245,158,11,.35);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+    .hero-title span { color: var(--blue); }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 460px;
+    }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn-hero {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.9);
+      border: 1.5px solid rgba(255,255,255,.2);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); transform: translateY(-1px); }
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-lbl {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.5);
+      margin-top: 2px;
+    }
+
+    /* Phone mockup */
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
-
-    ul li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #7c3aed;
+    .phone {
+      width: 240px;
+      height: 490px;
+      background: #1E293B;
+      border-radius: 36px;
+      border: 3px solid rgba(255,255,255,.12);
+      box-shadow: 0 32px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-notch {
+      width: 90px; height: 22px;
+      background: #0F172A;
+      border-radius: 0 0 14px 14px;
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+    .phone-screen {
+      flex: 1;
+      padding: 12px 10px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .phone-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .phone-topbar-title {
+      font-size: 11px;
       font-weight: 700;
+      color: #F1F5F9;
+    }
+    .phone-topbar-icon {
+      width: 22px; height: 22px;
+      background: var(--blue);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .resume-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    }
+    .rc-header {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .rc-avatar {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 50%;
+    }
+    .rc-name { font-size: 9.5px; font-weight: 700; color: #111827; }
+    .rc-role { font-size: 8px; color: #6B7280; }
+    .rc-divider { height: 1px; background: #F3F4F6; margin: 6px 0; }
+    .rc-line {
+      height: 5px;
+      background: #E5E7EB;
+      border-radius: 3px;
+      margin-bottom: 4px;
+    }
+    .rc-line.w80 { width: 80%; }
+    .rc-line.w60 { width: 60%; }
+    .rc-line.w70 { width: 70%; }
+    .rc-line.w50 { width: 50%; }
+    .rc-section-label {
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 6px 0 4px;
+    }
+    .ai-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(90deg, #EFF6FF, #F5F3FF);
+      border: 1px solid #C7D2FE;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-top: 6px;
+      width: fit-content;
+    }
+    .phone-tab-bar {
+      display: flex;
+      background: #1E293B;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 6px 0 4px;
+    }
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .tab-dot {
+      width: 18px; height: 18px;
+      border-radius: 5px;
+    }
+    .tab-dot.active { background: var(--blue); }
+    .tab-dot.inactive { background: rgba(255,255,255,.15); }
+    .tab-label { font-size: 7px; color: rgba(255,255,255,.4); }
+    .tab-label.active { color: var(--blue); }
+
+    /* floating card on phone */
+    .phone-float {
+      position: absolute;
+      right: -30px;
+      top: 80px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 8px 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--navy);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+    }
+    .phone-float-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .phone-float2 {
+      position: absolute;
+      left: -35px;
+      bottom: 100px;
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 8px 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      font-size: 9px;
+      color: rgba(255,255,255,.8);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,.1);
     }
 
+    /* ── Features ── */
+    #features { background: var(--bg); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .step-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .step-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      transform: translateY(-3px);
+    }
+    .step-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .step-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.9rem;
+    }
+    .step-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .step-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Why Resumatic ── */
+    #why { background: var(--surface); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .why-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1.4rem;
+      border-radius: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .why-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+    .why-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── Pricing ── */
+    #pricing { background: var(--bg); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+      align-items: start;
+    }
+    .price-card {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 1.75rem 1.5rem;
+      border: 1.5px solid var(--border);
+      position: relative;
+      transition: box-shadow .2s;
+    }
+    .price-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.09); }
+    .price-card.featured {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12), 0 8px 28px rgba(37,99,235,.12);
+    }
+    .price-badge {
+      position: absolute;
+      top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .price-badge.gold { background: var(--gold); color: #7c2d12; }
+    .price-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .price-amount {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .price-amount sup { font-size: 1rem; vertical-align: super; font-weight: 700; }
+    .price-period { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .price-features { list-style: none; margin-bottom: 1.5rem; }
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text);
+      padding: 0.3rem 0;
+    }
+    .price-features li svg { flex-shrink: 0; margin-top: 1px; }
+    .price-trial {
+      font-size: 0.78rem;
+      color: var(--green);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── Privacy ── */
+    #privacy { background: var(--surface); }
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .pp-card {
+      background: var(--bg);
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+      border: 1px solid var(--border);
+    }
+    .pp-card h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pp-card p, .pp-card li { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .pp-card ul { list-style: none; }
+    .pp-card ul li { padding: 0.2rem 0 0.2rem 0.9rem; position: relative; }
+    .pp-card ul li::before { content:"–"; position:absolute; left:0; color:var(--blue); }
     .highlight-box {
-      background: #f5f3ff;
-      border-left: 4px solid #7c3aed;
+      background: var(--blue-light);
+      border-left: 4px solid var(--blue);
       border-radius: 0 8px 8px 0;
       padding: 0.9rem 1.1rem;
-      margin: 1rem 0;
+      margin: 1.5rem 0;
       font-size: 0.9rem;
-      color: #4b5563;
+      color: #1D4ED8;
     }
-
-    table {
+    .pp-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      margin-top: 1rem;
     }
-
-    th {
+    .pp-table th {
       text-align: left;
-      background: #f5f3ff;
-      color: #4f46e5;
+      background: var(--blue-light);
+      color: var(--blue);
       font-weight: 600;
-      padding: 0.6rem 0.8rem;
-      border-bottom: 2px solid #e5e7eb;
+      padding: 0.55rem 0.75rem;
+      border-bottom: 2px solid var(--border);
     }
-
-    td {
-      padding: 0.55rem 0.8rem;
-      border-bottom: 1px solid #f3f4f6;
+    .pp-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
       vertical-align: top;
-      color: #374151;
+      color: var(--text);
     }
+    .pp-table tr:last-child td { border-bottom: none; }
 
-    tr:last-child td { border-bottom: none; }
-
-    a { color: #4f46e5; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
+    /* ── Footer ── */
     footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.5);
+      padding: 2.5rem 1.5rem;
       text-align: center;
-      padding: 1.5rem;
-      font-size: 0.82rem;
-      color: #9ca3af;
+      font-size: 0.83rem;
+    }
+    footer .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin: 0.75rem 0; }
+    footer .footer-links a { color: rgba(255,255,255,.5); font-size: 0.83rem; }
+    footer .footer-links a:hover { color: #fff; text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .phone-wrap { display: none; }
+      .nav-links { display: none; }
+      section { padding: 3.5rem 1.25rem; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Privacy Policy</h1>
-  <p>Resumatic — AI Resume Builder</p>
-  <span class="badge">Last updated: June 10, 2025</span>
-</header>
+<!-- ─────────────────────── NAV ─────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="nav-brand">
+      <!-- R logo mark -->
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="30" height="30" rx="8" fill="#2563EB"/>
+        <path d="M9 22V8h7.2c1.6 0 2.85.4 3.75 1.2.9.8 1.35 1.87 1.35 3.2 0 .93-.23 1.73-.7 2.4-.47.67-1.13 1.15-2 1.45L21.5 22H18.8l-2.6-5.4H11.6V22H9zm2.6-7.6h4.4c.87 0 1.52-.21 1.97-.64.45-.43.67-1.01.67-1.76 0-.75-.22-1.33-.67-1.76C17.52 9.81 16.87 9.6 16 9.6h-4.4v4.8z" fill="white"/>
+      </svg>
+      Resumatic
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">How it works</a></li>
+      <li><a href="#why">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#privacy">Privacy</a></li>
+    </ul>
+    <a href="https://play.google.com/store" class="btn btn-primary" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l1.374.795a1 1 0 010 1.734l-1.374.795-2.497-2.497 2.497-2.827zM5.864 3.658L16.8 9.99l-2.302 2.302-8.635-8.635z"/></svg>
+      Get on Google Play
+    </a>
+  </div>
+</nav>
 
-<main>
+<!-- ─────────────────────── HERO ─────────────────────── -->
+<section id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        AI-Powered Resume Builder
+      </div>
+      <h1 class="hero-title">Land your dream job with a <span>standout resume</span></h1>
+      <p class="hero-desc">
+        Resumatic combines beautiful templates, smart AI writing assistance, and one-tap PDF export
+        to help you create a professional resume in minutes — not hours.
+      </p>
+      <div class="hero-actions">
+        <a href="https://play.google.com/store" class="btn btn-primary btn-hero" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l1.374.795a1 1 0 010 1.734l-1.374.795-2.497-2.497 2.497-2.827zM5.864 3.658L16.8 9.99l-2.302 2.302-8.635-8.635z"/></svg>
+          Download Free
+        </a>
+        <a href="#features" class="btn btn-ghost btn-hero">
+          See how it works
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">5+</div>
+          <div class="stat-lbl">Pro Templates</div>
+        </div>
+        <div>
+          <div class="stat-val">AI</div>
+          <div class="stat-lbl">Writing Assistant</div>
+        </div>
+        <div>
+          <div class="stat-val">PDF</div>
+          <div class="stat-lbl">One-Tap Export</div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Introduction -->
-  <div class="card">
-    <h2><span class="icon">📋</span> Introduction</h2>
-    <p>
-      Resumatic ("we", "our", or "us") is an AI-powered resume builder for Android. This Privacy Policy explains
-      what information we collect, how we use it, and your rights regarding your data.
-      By using the app you agree to the practices described here.
-    </p>
-    <div class="highlight-box">
-      We do <strong>not</strong> sell your personal information to third parties. Data you enter into your resume
-      stays in your control — we only process it to provide the service.
+    <!-- Phone mockup -->
+    <div class="phone-wrap">
+      <div style="position:relative;">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-topbar">
+              <span class="phone-topbar-title">My Resumes</span>
+              <div class="phone-topbar-icon">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+              </div>
+            </div>
+
+            <!-- Resume card 1 -->
+            <div class="resume-card">
+              <div class="rc-header">
+                <div class="rc-avatar"></div>
+                <div>
+                  <div class="rc-name">Alex Johnson</div>
+                  <div class="rc-role">Product Designer</div>
+                </div>
+              </div>
+              <div class="rc-divider"></div>
+              <div class="rc-section-label">Experience</div>
+              <div class="rc-line w80"></div>
+              <div class="rc-line w60"></div>
+              <div class="rc-section-label">Skills</div>
+              <div class="rc-line w70"></div>
+              <div class="ai-chip">
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="#2563EB"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                AI Enhanced
+              </div>
+            </div>
+
+            <!-- Resume card 2 -->
+            <div class="resume-card" style="opacity:.7">
+              <div class="rc-header">
+                <div class="rc-avatar" style="background:linear-gradient(135deg,#059669,#0284C7)"></div>
+                <div>
+                  <div class="rc-name">Software Engineer</div>
+                  <div class="rc-role">Draft</div>
+                </div>
+              </div>
+              <div class="rc-divider"></div>
+              <div class="rc-line w50"></div>
+              <div class="rc-line w70"></div>
+            </div>
+          </div>
+          <div class="phone-tab-bar">
+            <div class="tab-item"><div class="tab-dot active"></div><div class="tab-label active">Home</div></div>
+            <div class="tab-item"><div class="tab-dot inactive"></div><div class="tab-label">Templates</div></div>
+            <div class="tab-item"><div class="tab-dot inactive"></div><div class="tab-label">AI</div></div>
+            <div class="tab-item"><div class="tab-dot inactive"></div><div class="tab-label">Settings</div></div>
+          </div>
+        </div>
+        <!-- floating callouts -->
+        <div class="phone-float">
+          <div class="phone-float-dot"></div>
+          AI suggestion ready
+        </div>
+        <div class="phone-float2">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#F59E0B"><path d="M20 6h-2.18c.07-.44.18-.86.18-1.3C18 2.57 16.43 1 14.5 1c-1.74 0-3.41 1.01-4.5 2.09C8.91 2.01 7.24 1 5.5 1 3.57 1 2 2.57 2 4.5c0 .44.11.86.18 1.3H0v2h2l2 14h16l2-14h2V6z"/></svg>
+          PDF exported
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- Information we collect -->
-  <div class="card">
-    <h2><span class="icon">📦</span> Information We Collect</h2>
+<!-- ─────────────────────── HOW IT WORKS ─────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">From blank page to job-ready in 5 steps</h2>
+    <p class="section-sub">Everything you need to build, polish, and share a resume that gets noticed.</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>What we collect</th>
-          <th>Why</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Account</strong></td>
-          <td>Name, email address, profile photo URL</td>
-          <td>Sign-in &amp; personalization</td>
-        </tr>
-        <tr>
-          <td><strong>Resume content</strong></td>
-          <td>Text you enter (work history, skills, education, etc.)</td>
-          <td>Core app functionality &amp; AI suggestions</td>
-        </tr>
-        <tr>
-          <td><strong>Subscription</strong></td>
-          <td>Plan type (free / Pro), purchase token, expiry date</td>
-          <td>Billing &amp; feature access</td>
-        </tr>
-        <tr>
-          <td><strong>Usage data</strong></td>
-          <td>AI request counts, feature usage frequency</td>
-          <td>Rate-limiting, abuse prevention</td>
-        </tr>
-        <tr>
-          <td><strong>Device info</strong></td>
-          <td>Android version, device model (via crash reporting)</td>
-          <td>Debugging &amp; stability</td>
-        </tr>
-      </tbody>
-    </table>
-    <p style="margin-top:0.8rem;">
-      We do <strong>not</strong> collect precise GPS location, contacts, microphone audio, or camera images.
-    </p>
-  </div>
+    <div class="steps-grid">
 
-  <!-- How we use your data -->
-  <div class="card">
-    <h2><span class="icon">⚙️</span> How We Use Your Information</h2>
-    <ul>
-      <li>Authenticate your account and maintain your session</li>
-      <li>Generate AI-powered resume content suggestions using your resume text</li>
-      <li>Verify purchases and manage Pro subscription access</li>
-      <li>Store and sync your resumes across devices</li>
-      <li>Enforce rate limits to prevent abuse of AI features</li>
-      <li>Diagnose crashes and improve app stability</li>
-    </ul>
-  </div>
+      <div class="step-card">
+        <div class="step-num">STEP 01</div>
+        <div class="step-icon" style="background:rgba(37,99,235,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#2563EB"><path d="M4 5h3v2H4V5zm0 4h3v2H4V9zm0 4h3v2H4v-2zm5-8h11v2H9V5zm0 4h11v2H9V9zm0 4h11v2H9v-2zM4 17h3v2H4v-2zm5 0h11v2H9v-2z"/></svg>
+        </div>
+        <h3>Pick a Template</h3>
+        <p>Choose from professionally designed resume templates built for every industry and style.</p>
+      </div>
 
-  <!-- AI & third-party services -->
-  <div class="card">
-    <h2><span class="icon">🤖</span> AI Services &amp; Third Parties</h2>
-    <p>
-      When you use AI features, selected resume text is sent to a large language model provider
-      to generate suggestions. We share only the minimum text needed to fulfill the request.
-      No request is permanently stored by us beyond your own account data.
-    </p>
+      <div class="step-card">
+        <div class="step-num">STEP 02</div>
+        <div class="step-icon" style="background:rgba(5,150,105,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#059669"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </div>
+        <h3>Fill In Your Details</h3>
+        <p>Add your work history, education, skills, and projects with our guided section editor.</p>
+      </div>
 
-    <table style="margin-top:1rem;">
-      <thead>
-        <tr>
-          <th>Third Party</th>
-          <th>Purpose</th>
-          <th>Privacy Policy</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Supabase</td>
-          <td>Authentication, database, serverless functions</td>
-          <td><a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></td>
-        </tr>
-        <tr>
-          <td>Google Play Billing</td>
-          <td>In-app purchases &amp; subscription management</td>
-          <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></td>
-        </tr>
-        <tr>
-          <td>AI Provider (LLM)</td>
-          <td>Resume content generation &amp; AI suggestions</td>
-          <td>Depends on configured provider (e.g. Anthropic / OpenAI)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="step-card">
+        <div class="step-num">STEP 03</div>
+        <div class="step-icon" style="background:rgba(124,58,237,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#7C3AED"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+        </div>
+        <h3>AI Writing Assistant</h3>
+        <p>Let AI generate and improve bullet points, summaries, and skill lists tailored to your role.</p>
+      </div>
 
-  <!-- Data storage -->
-  <div class="card">
-    <h2><span class="icon">💾</span> Data Storage &amp; Retention</h2>
-    <ul>
-      <li><strong>On-device:</strong> Account session details and subscription status are stored in encrypted SharedPreferences.</li>
-      <li><strong>Cloud (Supabase):</strong> Your account profile and resume data are stored in our Supabase project hosted in the EU.</li>
-      <li>We retain your data for as long as your account is active. You can request deletion at any time (see "Your Rights" below).</li>
-      <li>Subscription purchase tokens are retained for the duration of the subscription to validate access.</li>
-    </ul>
-  </div>
+      <div class="step-card">
+        <div class="step-num">STEP 04</div>
+        <div class="step-icon" style="background:rgba(234,88,12,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#EA580C"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm3.5-5c0 1.93-1.57 3.5-3.5 3.5S8.5 15.93 8.5 14H10c0 1.1.9 2 2 2s2-.9 2-2h1.5zm-7-2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm7 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+        </div>
+        <h3>Customize Style</h3>
+        <p>Adjust fonts, colors, spacing, and section order until your resume perfectly matches your brand.</p>
+      </div>
 
-  <!-- Security -->
-  <div class="card">
-    <h2><span class="icon">🔒</span> Security</h2>
-    <p>
-      We use industry-standard measures including HTTPS/TLS for all data in transit, Supabase Row-Level Security
-      to ensure users can only access their own data, and server-side purchase verification via Google Play
-      Developer API to prevent fraudulent Pro access. No security measure is perfect — please use a strong
-      password and enable two-factor authentication on your sign-in provider.
-    </p>
-  </div>
+      <div class="step-card">
+        <div class="step-num">STEP 05</div>
+        <div class="step-icon" style="background:rgba(2,132,199,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0284C7"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        </div>
+        <h3>Export as PDF</h3>
+        <p>Download a pixel-perfect PDF or share a link directly with recruiters in one tap.</p>
+      </div>
 
-  <!-- Children -->
-  <div class="card">
-    <h2><span class="icon">👶</span> Children's Privacy</h2>
-    <p>
-      Resumatic is not directed at children under 13 (or under 16 in the EEA). We do not knowingly collect
-      personal information from children. If you believe a child has provided us with personal data, please
-      contact us and we will delete it promptly.
-    </p>
-  </div>
-
-  <!-- Your rights -->
-  <div class="card">
-    <h2><span class="icon">✅</span> Your Rights</h2>
-    <p>Depending on your location you may have the right to:</p>
-    <ul>
-      <li><strong>Access</strong> the personal data we hold about you</li>
-      <li><strong>Correct</strong> inaccurate data</li>
-      <li><strong>Delete</strong> your account and all associated data</li>
-      <li><strong>Export</strong> your resume data in a portable format</li>
-      <li><strong>Opt out</strong> of non-essential data processing</li>
-    </ul>
-    <div class="highlight-box">
-      To exercise any of these rights, email us at
-      <a href="mailto:Vottery.GWS@gmail.com">Vottery.GWS@gmail.com</a>.
-      We will respond within 30 days.
     </div>
   </div>
+</section>
 
-  <!-- Changes -->
-  <div class="card">
-    <h2><span class="icon">📝</span> Changes to This Policy</h2>
-    <p>
-      We may update this Privacy Policy from time to time. When we make material changes, we will notify you
-      in-app or via email at least 7 days before the changes take effect. Continued use of the app after the
-      effective date constitutes acceptance of the revised policy.
-    </p>
+<!-- ─────────────────────── WHY RESUMATIC ─────────────────────── -->
+<section id="why">
+  <div class="container">
+    <div class="section-label">Why Resumatic</div>
+    <h2 class="section-title">Everything a great resume needs</h2>
+    <p class="section-sub">Built for Android with a focus on speed, quality, and a design that impresses hiring managers.</p>
+
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(37,99,235,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#2563EB"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
+        </div>
+        <div>
+          <h3>AI-Powered Suggestions</h3>
+          <p>Claude &amp; OpenAI generate polished bullet points and summaries for every section of your resume.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(5,150,105,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#059669"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        </div>
+        <div>
+          <h3>Pixel-Perfect PDF Export</h3>
+          <p>Export beautiful, ATS-friendly PDFs that look exactly as designed on any screen or printer.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(124,58,237,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#7C3AED"><path d="M4 5h3v2H4V5zm0 4h3v2H4V9zm0 4h3v2H4v-2zm5-8h11v2H9V5zm0 4h11v2H9V9zm0 4h11v2H9v-2zM4 17h3v2H4v-2zm5 0h11v2H9v-2z"/></svg>
+        </div>
+        <div>
+          <h3>Multiple Templates</h3>
+          <p>Pick from layouts crafted for tech, creative, finance, and general roles — all fully customizable.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(234,88,12,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#EA580C"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <div>
+          <h3>Secure Cloud Sync</h3>
+          <p>Your resumes are encrypted and synced via Supabase so they are safe and available on any device.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(2,132,199,.1)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0284C7"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        </div>
+        <div>
+          <h3>Live Preview</h3>
+          <p>See exactly how your resume looks as you type — no surprises when you hit export.</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon" style="background:rgba(245,158,11,.12)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#F59E0B"><path d="M20 6h-2.18c.07-.44.18-.86.18-1.3C18 2.57 16.43 1 14.5 1c-1.74 0-3.41 1.01-4.5 2.09C8.91 2.01 7.24 1 5.5 1 3.57 1 2 2.57 2 4.5c0 .44.11.86.18 1.3H0v2h2l2 14h16l2-14h2V6zm-5.5-3c.83 0 1.5.67 1.5 1.5 0 .44-.2.84-.5 1.12V6H10V5.62C9.7 5.34 9.5 4.94 9.5 4.5c0-.83.67-1.5 1.5-1.5h3.5z"/></svg>
+        </div>
+        <div>
+          <h3>Pro Features, Free Trial</h3>
+          <p>Try all Pro features free for 7 days — unlimited AI, all templates, no watermarks.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
+</section>
 
-  <!-- Contact -->
-  <div class="card">
-    <h2><span class="icon">✉️</span> Contact Us</h2>
-    <p>
-      If you have any questions or concerns about this Privacy Policy or how we handle your data, please reach out:
-    </p>
-    <ul style="margin-top:0.6rem;">
-      <li>Email: <a href="mailto:Vottery.GWS@gmail.com">Vottery.GWS@gmail.com</a></li>
-    </ul>
+<!-- ─────────────────────── PRICING ─────────────────────── -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple, transparent pricing</h2>
+    <p class="section-sub">Start free. Upgrade when you need more power. Cancel any time.</p>
+
+    <div class="pricing-grid">
+
+      <!-- Weekly -->
+      <div class="price-card">
+        <div class="price-name">7-Day Pass</div>
+        <div class="price-amount"><sup>$</sup>2<span style="font-size:1.1rem">.99</span></div>
+        <div class="price-period">one-time · no auto-renewal</div>
+        <ul class="price-features">
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Full Pro access for 7 days
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            All templates unlocked
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Unlimited AI requests
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            No watermarks on export
+          </li>
+        </ul>
+        <a href="https://play.google.com/store" class="btn btn-outline" style="width:100%;justify-content:center" target="_blank" rel="noopener">Get started</a>
+      </div>
+
+      <!-- Monthly — featured -->
+      <div class="price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-name">Monthly</div>
+        <div class="price-amount"><sup>$</sup>9<span style="font-size:1.1rem">.99</span></div>
+        <div class="price-period">per month · auto-renewing</div>
+        <div class="price-trial">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          7-day free trial included
+        </div>
+        <ul class="price-features">
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#2563EB"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Unlimited resumes
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#2563EB"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            All templates
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#2563EB"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Unlimited AI requests
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#2563EB"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            No watermarks
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#2563EB"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Priority support
+          </li>
+        </ul>
+        <a href="https://play.google.com/store" class="btn btn-primary" style="width:100%;justify-content:center" target="_blank" rel="noopener">Start free trial</a>
+      </div>
+
+      <!-- Yearly -->
+      <div class="price-card">
+        <div class="price-badge" style="background:#059669">Save 58%</div>
+        <div class="price-name">Yearly</div>
+        <div class="price-amount"><sup>$</sup>49<span style="font-size:1.1rem">.99</span></div>
+        <div class="price-period">per year · auto-renewing</div>
+        <div class="price-trial">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          7-day free trial included
+        </div>
+        <ul class="price-features">
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Everything in Monthly
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Best price per month
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#059669"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            ~$4.17/month billed yearly
+          </li>
+        </ul>
+        <a href="https://play.google.com/store" class="btn btn-outline" style="width:100%;justify-content:center" target="_blank" rel="noopener">Get started</a>
+      </div>
+
+      <!-- Lifetime -->
+      <div class="price-card">
+        <div class="price-badge gold">Best Value</div>
+        <div class="price-name">Lifetime</div>
+        <div class="price-amount"><sup>$</sup>79<span style="font-size:1.1rem">.99</span></div>
+        <div class="price-period">one-time · yours forever</div>
+        <ul class="price-features">
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Pay once, use forever
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            All future templates included
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            No subscription ever
+          </li>
+          <li>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            Everything in Monthly
+          </li>
+        </ul>
+        <a href="https://play.google.com/store" class="btn btn-outline" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold)" target="_blank" rel="noopener">Buy lifetime</a>
+      </div>
+
+    </div>
   </div>
+</section>
 
-</main>
+<!-- ─────────────────────── PRIVACY POLICY ─────────────────────── -->
+<section id="privacy">
+  <div class="container">
+    <div class="section-label">Legal</div>
+    <h2 class="section-title">Privacy Policy</h2>
+    <p class="section-sub">Last updated: June 10, 2025</p>
 
+    <div class="highlight-box" style="margin-top:1.5rem">
+      <strong>In plain English:</strong> We do <strong>not</strong> sell your data. Resume content is used only to
+      generate AI suggestions on your behalf. You can delete your account and all data at any time.
+    </div>
+
+    <div class="privacy-grid">
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          Introduction
+        </h3>
+        <p>
+          Resumatic is an AI-powered resume builder for Android. This policy explains what we collect,
+          how we use it, and your rights. By using the app you agree to these practices.
+        </p>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/></svg>
+          What We Collect
+        </h3>
+        <table class="pp-table">
+          <thead><tr><th>Category</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Account</strong></td><td>Name, email, profile photo URL</td></tr>
+            <tr><td><strong>Resume</strong></td><td>Text you enter — work history, skills, education</td></tr>
+            <tr><td><strong>Billing</strong></td><td>Plan type, purchase token, expiry date</td></tr>
+            <tr><td><strong>Usage</strong></td><td>AI request counts (rate-limiting only)</td></tr>
+            <tr><td><strong>Device</strong></td><td>Android version, model (crash reporting)</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:.7rem;font-size:.8rem">We do <strong>not</strong> collect GPS location, contacts, microphone, or camera data.</p>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
+          AI &amp; Third Parties
+        </h3>
+        <p>When you use AI features, your resume text is sent to an LLM provider to generate suggestions. We share only the minimum text needed.</p>
+        <table class="pp-table" style="margin-top:.75rem">
+          <thead><tr><th>Service</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Supabase</td><td>Auth, database, functions</td></tr>
+            <tr><td>Google Play</td><td>In-app purchases</td></tr>
+            <tr><td>Anthropic / OpenAI</td><td>AI resume suggestions</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          Security
+        </h3>
+        <p>All data is encrypted in transit (HTTPS/TLS). Supabase Row-Level Security ensures you can only access your own data. Purchase tokens are verified server-side via Google Play Developer API.</p>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Your Rights
+        </h3>
+        <ul>
+          <li>Access the personal data we hold</li>
+          <li>Correct inaccurate data</li>
+          <li>Delete your account and all data</li>
+          <li>Export your resume data</li>
+          <li>Opt out of non-essential processing</li>
+        </ul>
+        <p style="margin-top:.75rem">Email <a href="mailto:Vottery.GWS@gmail.com">Vottery.GWS@gmail.com</a> — we respond within 30 days.</p>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          Children's Privacy
+        </h3>
+        <p>Resumatic is not directed at children under 13 (under 16 in the EEA). We do not knowingly collect data from children. Contact us immediately if you believe a child has registered.</p>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+          Retention &amp; Storage
+        </h3>
+        <ul>
+          <li>On-device: session &amp; subscription in SharedPreferences</li>
+          <li>Cloud: resumes &amp; profile in Supabase (EU region)</li>
+          <li>Retained while your account is active</li>
+          <li>Purchase tokens kept for subscription duration</li>
+        </ul>
+      </div>
+
+      <div class="pp-card">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563EB"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact Us
+        </h3>
+        <p>Questions or requests? We'd love to hear from you.</p>
+        <p style="margin-top:.6rem">
+          <a href="mailto:Vottery.GWS@gmail.com"><strong>Vottery.GWS@gmail.com</strong></a>
+        </p>
+        <p style="margin-top:.4rem;font-size:.8rem;color:var(--muted)">
+          We may update this policy and will notify you in-app or by email at least 7 days before material changes take effect.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── FOOTER ─────────────────────── -->
 <footer>
-  &copy; 2025 Resumatic. All rights reserved.
+  <div class="footer-brand">
+    <svg width="26" height="26" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="30" height="30" rx="8" fill="#2563EB"/>
+      <path d="M9 22V8h7.2c1.6 0 2.85.4 3.75 1.2.9.8 1.35 1.87 1.35 3.2 0 .93-.23 1.73-.7 2.4-.47.67-1.13 1.15-2 1.45L21.5 22H18.8l-2.6-5.4H11.6V22H9zm2.6-7.6h4.4c.87 0 1.52-.21 1.97-.64.45-.43.67-1.01.67-1.76 0-.75-.22-1.33-.67-1.76C17.52 9.81 16.87 9.6 16 9.6h-4.4v4.8z" fill="white"/>
+    </svg>
+    Resumatic
+  </div>
+  <div class="footer-links">
+    <a href="#features">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="mailto:Vottery.GWS@gmail.com">Contact</a>
+  </div>
+  <p>&copy; 2025 Resumatic. All rights reserved.</p>
 </footer>
 
 </body>
